@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:testapp/categoryproduct.dart';
 import 'package:testapp/services/api_services.dart';
 import 'package:testapp/utils/colors.dart';
 import 'package:testapp/utils/loaders/color_loader_4.dart';
@@ -144,10 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                                                           _username = value;
                                                           if (value.isEmpty) {
                                                             return 'Please enter email';
-                                                          }
-                                                          if (!isEmailInvalid(
-                                                              value)) {
-                                                            return 'Please enter valid email';
                                                           }
                                                         },
                                                       ),
@@ -294,14 +291,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _performLogin(BuildContext context) async {
     print("email : " + _username + _password);
-    _apiService.postLogin(_username, _password, context);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CategoryProduct()));
   }
 
-  bool isEmailInvalid(String email) {
-    RegExp exp = new RegExp(
-        r"^[_A-Za-z0-9-+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$");
-    return exp.hasMatch(email);
-  }
 
   void _onLoading() {
     showDialog(

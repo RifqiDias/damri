@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:testapp/page.dart';
+import 'package:testapp/categoryproduct.dart';
 import 'package:http/http.dart' as http;
 import 'package:testapp/utils/config.dart';
 
@@ -30,40 +30,13 @@ class ApiService {
             headers: {'Accept': 'application/json', 'Charset': 'utf-8'},
             encoding: Encoding.getByName("utf-8"))
         .then((response) async {
-      if (response.statusCode == 200) {
-        dynamic getbody = jsonDecode(response.body);
-        dynamic gettoken = getbody['token'].toString();
-        print("tokenvalue: "+response.body);
+           Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(builder: (context) => CategoryProduct()));
 
-        //decoded token & saved value
-        // final String token = gettoken;
-        // final parts = token.split('.');
-        // final payload = parts[1];
-        // final String decoded = B64urlEncRfc7515.decodeUtf8(payload);
 
-        // dynamic decodeid = jsonDecode(decoded);
-        // dynamic getuserid = decodeid['id'];
-
-        // dynamic saveidvalue = await SharedPreferences.getInstance();
-        // saveidvalue.setInt("idsaved", getuserid);
-        //
-
-        dynamic savetokenvalue = await SharedPreferences.getInstance();
-        savetokenvalue.setString("authtoken", gettoken);
-        Container(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+        }
         );
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) => PageApp()));
-      } else {
-        dynamic getbody = jsonDecode(response.body);
-        getresponbody = getbody['message'].toString();
-        print("nilai get message : $getresponbody");
-        _errorLogin(context);
-      }
-    });
+
   }
 
   void _errorLogin(BuildContext context) {
